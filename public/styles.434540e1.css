@@ -1,0 +1,48 @@
+@keyframes slideDown {
+  0% {
+    transform: translateY(0); }
+  100% {
+    transform: translateY(100vh); } }
+
+body {
+  position: relative; }
+
+header {
+  box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.09);
+  background-color: cyan;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 20px;
+  position: absolute;
+  width: 400px;
+  z-index: 5; }
+
+.topBox {
+  align-items: center;
+  display: flex;
+  justify-content: space-around; }
+
+.sliderContainer {
+  width: 100%; }
+
+.slider {
+  width: 100%;
+  -webkit-transition: .2s;
+  transition: opacity .2s; }
+
+.testCircle {
+  position: absolute;
+  border-radius: 100%;
+  background-color: black; }
+
+main {
+  display: grid;
+  grid-template: 100vh/repeat(8, 12.5%);
+  position: relative; }
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(0); }
+  100% {
+    transform: translateY(105vh); } }
