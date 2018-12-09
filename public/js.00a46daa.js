@@ -122,27 +122,90 @@ exports.randomNumber = randomNumber;
 
 var _util = require("./util.js");
 
-var slider = document.getElementById('speedControl');
-var speedDisplay = document.getElementById('currentSpeed');
-speedDisplay.innerHTML = slider.value;
-var startButton = document.getElementById('startButton');
-var circle = document.getElementsByClassName('testCircle'); // Global variables
+var slider = document.querySelector('#speedControl');
+var scoreDisplay = document.querySelector('#currentScore');
+scoreDisplay.innerHTML = 0;
+var startButton = document.querySelector('#startButton');
+var lanes = document.querySelectorAll('.dropLane'); // Global variables
 
-var currentSpeed = slider.value;
-var score;
-var isPlaying = false; // Update currentSpeed when slider is adjusted
-
-slider.oninput = function () {
-  currentSpeed = this.value;
-  speedDisplay.innerHTML = currentSpeed;
-}; // Capture button press
-
-
-startButton.onclick = function () {
-  console.log('random number 1-10: ', (0, _util.randomNumber)(1, 10));
-  isPlaying = !isPlaying;
-  this.innerHTML = isPlaying ? 'Pause' : 'Start';
+var gameState = {
+  currentSpeed: slider.value,
+  score: 0,
+  isPlaying: false
 };
+var myInterval;
+
+var addCircle = function addCircle() {
+  var circlePointData = (0, _util.randomNumber)(1, 11);
+  var circleData = {
+    lane: lanes[(0, _util.randomNumber)(0, 8)],
+    size: "".concat(circlePointData * 10, "px"),
+    pointValue: 11 - circlePointData
+  };
+  var circleComponent = document.createElement('div');
+  circleComponent.classList.add('testCircle');
+  circleComponent.setAttribute("style", "height: ".concat(circleData.size, "; width: ").concat(circleData.size, "; animation: slideDown ").concat(determineAnimationTime(), "s linear"));
+  circleComponent.setAttribute("data-pointValue", "".concat(circleData.pointValue));
+  circleComponent.addEventListener("click", function () {
+    return addCircleToScore(circleComponent);
+  });
+  circleComponent.addEventListener("animationend", function () {
+    return removeCircle(circleComponent);
+  });
+  circleData.lane.appendChild(circleComponent);
+};
+
+var updateScore = function updateScore(amtToAdd) {
+  gameState.score += +amtToAdd;
+  scoreDisplay.innerHTML = gameState.score;
+};
+
+var determineAnimationTime = function determineAnimationTime() {
+  var windowHeight = window.innerHeight;
+  var desiredFallRate = gameState.currentSpeed;
+  return windowHeight / desiredFallRate;
+};
+
+var addCircleToScore = function addCircleToScore(circleComponent) {
+  if (gameState.isPlaying) {
+    updateScore(circleComponent.dataset.pointvalue);
+    removeCircle(circleComponent);
+  }
+};
+
+var removeCircle = function removeCircle(circleComponent) {
+  circleComponent.removeEventListener("animationend", removeCircle);
+  circleComponent.parentNode.removeChild(circleComponent);
+};
+
+var updateSliderDisplay = function updateSliderDisplay(newValue) {
+  document.querySelector('#currentSpeed').innerHTML = newValue;
+}; // Update currentSpeed when slider is adjusted
+
+
+slider.addEventListener('input', function (event) {
+  var value = event.target.value;
+  gameState.currentSpeed = value;
+  updateSliderDisplay(value);
+}); // Capture button press
+
+startButton.addEventListener('click', function () {
+  var isPlaying = gameState.isPlaying;
+  gameState.isPlaying = !isPlaying;
+  startButton.innerHTML = gameState.isPlaying ? 'Pause' : 'Start'; // Add a circle to a random lane every second
+
+  if (gameState.isPlaying) {
+    myInterval = setInterval(addCircle, 1000);
+  } else {
+    clearInterval(myInterval);
+  } // Grab all circles from the dom and pause animation
+
+
+  var circles = document.querySelectorAll('.testCircle');
+  circles.forEach(function (circle) {
+    circle.style.WebkitAnimationPlayState = gameState.isPlaying ? 'running' : 'paused';
+  });
+});
 },{"./util.js":"js/util.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -170,7 +233,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61625" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63501" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

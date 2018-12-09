@@ -5,12 +5,14 @@ body {
 }
 header {
   box-shadow: $box-shadow;
+  background-color: cyan;
   left: 0;
   right: 0;
   margin: 0 auto;
   padding: 20px;
   position: absolute;
   width: 400px;
+  z-index: 5;
 }
 
 .topBox {
@@ -24,9 +26,30 @@ header {
 }
 
 .slider {
-  // -webkit-appearance: none;  /* Override default CSS styles */
-  // appearance: none;
-  width: 100%; /* Full-width */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  width: 100%; 
+  -webkit-transition: .2s;
   transition: opacity .2s;
+}
+
+.testCircle {
+  position: absolute;
+  border-radius: 100%;
+  background-color: black;
+  // animation: slideDown 4s linear;
+}
+
+main {
+  display: grid;
+  grid-template: 100vh / repeat(8, 12.5%);
+  position: relative;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(105vh);
+  }
 }
