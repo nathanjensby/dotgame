@@ -1,5 +1,5 @@
 // Util
-import { updateSliderHTML, removeCage, updateScoreHTML } from './util.js';
+import { updateSliderHTML, updateSliderHeight, removeCage, updateScoreHTML } from './util.js';
 
 // Components
 import { textFlash } from './textFlash.js';
@@ -20,7 +20,12 @@ let gameState = {
 };
 let myInterval;
 
+window.addEventListener('resize', () => {
+  updateSliderHeight();
+})
+
 updateSliderHTML(gameState.currentSpeed);
+updateSliderHeight();
 
 // Update currentSpeed when slider is adjusted
 slider.addEventListener('input', (event) => {

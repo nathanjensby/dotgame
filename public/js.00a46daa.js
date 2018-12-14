@@ -110,7 +110,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateScore = exports.addPointValueToScore = exports.removeCage = exports.updateSliderHTML = exports.updateScoreHTML = exports.determinePosition = exports.determineAnimationTime = exports.randomNumber = void 0;
+exports.updateSliderHeight = exports.updateScore = exports.addPointValueToScore = exports.removeCage = exports.updateSliderHTML = exports.updateScoreHTML = exports.determinePosition = exports.determineAnimationTime = exports.randomNumber = void 0;
 
 var randomNumber = function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -136,6 +136,15 @@ var updateSliderHTML = function updateSliderHTML(newValue) {
 };
 
 exports.updateSliderHTML = updateSliderHTML;
+
+var updateSliderHeight = function updateSliderHeight() {
+  var sliderContainer = document.querySelector('.sliderContainer');
+  var slider = document.querySelector('.slider');
+  var newHeight = sliderContainer.getBoundingClientRect().height;
+  slider.setAttribute('style', "\n    width: ".concat(newHeight, "px;\n    transform-origin: ").concat(newHeight / 2, "px ").concat(newHeight / 2, "px\n  "));
+};
+
+exports.updateSliderHeight = updateSliderHeight;
 
 var determinePosition = function determinePosition(imageWidth) {
   var maxWidth = document.querySelector('.gameBoard').clientWidth;
@@ -293,7 +302,11 @@ var gameState = {
   isPlaying: false
 };
 var myInterval;
-(0, _util.updateSliderHTML)(gameState.currentSpeed); // Update currentSpeed when slider is adjusted
+window.addEventListener('resize', function () {
+  (0, _util.updateSliderHeight)();
+});
+(0, _util.updateSliderHTML)(gameState.currentSpeed);
+(0, _util.updateSliderHeight)(); // Update currentSpeed when slider is adjusted
 
 slider.addEventListener('input', function (event) {
   var value = event.target.value;
@@ -363,7 +376,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49309" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52938" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
