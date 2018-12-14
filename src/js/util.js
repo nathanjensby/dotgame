@@ -9,6 +9,16 @@ const updateScoreHTML = (newScore) => document.querySelector('#currentScore').in
 
 const updateSliderHTML = (newValue) => document.querySelector('#currentSpeed').innerHTML = `${newValue} px/s`;
 
+const updateSliderHeight = () => {
+  const sliderContainer = document.querySelector('.sliderContainer');
+  const slider = document.querySelector('.slider');
+  const newHeight = sliderContainer.getBoundingClientRect().height;
+  slider.setAttribute('style', `
+    width: ${newHeight}px;
+    transform-origin: ${newHeight / 2}px ${newHeight / 2}px
+  `);
+};
+
 const determinePosition = (imageWidth) => {
   const maxWidth = document.querySelector('.gameBoard').clientWidth;
   return randomNumber(0 + (imageWidth / 2), maxWidth - (imageWidth / 2));
@@ -39,5 +49,6 @@ export {
   updateSliderHTML,
   removeCage,
   addPointValueToScore,
-  updateScore
+  updateScore,
+  updateSliderHeight
 };

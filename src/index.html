@@ -8,34 +8,35 @@
 </head>
 
 <body>
-  <header>
-    <div class="leftSide">
-      <div class="scoreContainer">
-        <div><span id="currentScore"></span></div>
+  <main>
+    <header>
+      <div class="leftSide">
+        <div class="scoreContainer">
+          <div><span id="currentScore"></span></div>
+        </div>
       </div>
-    </div>
-    <div class="rightSide">
-      <div class="menuContainer">
-        <button>
-          <span>-</span>
-        </button>
-      </div>
+    </header>
+    <div class="gameBoard"></div>
+  </main>
+  <aside class="controls">
+    <div class="gameButtons">
       <div class="startContainer">
         <button id="startButton">Start</button>
       </div>
       <div class="resetContainer">
         <button id="resetButton">Restart</button>
       </div>
-      <div class="sliderContainer">
-        <input type="range" orient="vertical" min="10" max="100" step="10" class="slider" id="speedControl">
-      </div>
-      <div>Current Speed: <span id="currentSpeed"></span>
-      </div>
     </div>
-  </header>
-  <main>
-    <div class="gameBoard"></div>
-  </main>
+    <div class="sliderContainer">
+      <input type="range" min="10" max="100" step="10" class="slider" id="speedControl">
+    </div>
+    <div class="speedContainer">Speed: <span id="currentSpeed"></span></div>
+    <div class="menuContainer">
+      <button>
+        <span>-</span>
+      </button>
+    </div>
+  </aside>
 
   <script src="./js/index.js"></script>
 </body>
