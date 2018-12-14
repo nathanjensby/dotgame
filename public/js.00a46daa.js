@@ -110,23 +110,182 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.randomNumber = void 0;
+exports.updateScore = exports.addPointValueToScore = exports.removeCage = exports.updateSliderHTML = exports.updateScoreHTML = exports.determinePosition = exports.determineAnimationTime = exports.randomNumber = void 0;
 
 var randomNumber = function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
 exports.randomNumber = randomNumber;
-},{}],"js/index.js":[function(require,module,exports) {
+
+var determineAnimationTime = function determineAnimationTime(desiredFallRate) {
+  var windowHeight = window.innerHeight;
+  return windowHeight / desiredFallRate;
+};
+
+exports.determineAnimationTime = determineAnimationTime;
+
+var updateScoreHTML = function updateScoreHTML(newScore) {
+  return document.querySelector('#currentScore').innerHTML = newScore;
+};
+
+exports.updateScoreHTML = updateScoreHTML;
+
+var updateSliderHTML = function updateSliderHTML(newValue) {
+  return document.querySelector('#currentSpeed').innerHTML = "".concat(newValue, " px/s");
+};
+
+exports.updateSliderHTML = updateSliderHTML;
+
+var determinePosition = function determinePosition(imageWidth) {
+  var maxWidth = document.querySelector('.gameBoard').clientWidth;
+  return randomNumber(0 + imageWidth / 2, maxWidth - imageWidth / 2);
+};
+
+exports.determinePosition = determinePosition;
+
+var removeCage = function removeCage(imageWrapper) {
+  imageWrapper.removeEventListener("animationend", removeCage);
+  imageWrapper.parentNode.removeChild(imageWrapper);
+};
+
+exports.removeCage = removeCage;
+
+var addPointValueToScore = function addPointValueToScore(state, imageWrapper) {
+  if (state.isPlaying) {
+    updateScore(state, imageWrapper.dataset.pointvalue);
+    removeCage(imageWrapper);
+  }
+};
+
+exports.addPointValueToScore = addPointValueToScore;
+
+var updateScore = function updateScore(state, amtToAdd) {
+  state.score += +amtToAdd;
+  document.querySelector('#currentScore').innerHTML = state.score;
+};
+
+exports.updateScore = updateScore;
+},{}],"js/textFlash.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.textFlash = void 0;
+
+var textFlash = function textFlash(type) {
+  var target = document.querySelector('.gameBoard');
+  var flash = document.createElement('div');
+  flash.classList.add('textFlash', "".concat(type));
+  flash.setAttribute('style', "\n    animation: ".concat(type === 'restart' ? 'rotateAndFlash' : 'textFlash', " 1s ease-in-out;\n  "));
+  flash.addEventListener("animationend", function () {
+    flash.parentNode.removeChild(flash);
+  });
+  target.appendChild(flash);
+};
+
+exports.textFlash = textFlash;
+},{}],"images/cagev1.png":[function(require,module,exports) {
+module.exports = "/cagev1.2b0cfe84.png";
+},{}],"images/cagev2.png":[function(require,module,exports) {
+module.exports = "/cagev2.81c67585.png";
+},{}],"images/cagev3.png":[function(require,module,exports) {
+module.exports = "/cagev3.04b6021b.png";
+},{}],"images/cagev4.png":[function(require,module,exports) {
+module.exports = "/cagev4.750c9310.png";
+},{}],"images/cagev5.png":[function(require,module,exports) {
+module.exports = "/cagev5.100b1ead.png";
+},{}],"js/enums.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CAGES = exports.BASE_SIZE = void 0;
+
+var _cagev = _interopRequireDefault(require("../images/cagev1.png"));
+
+var _cagev2 = _interopRequireDefault(require("../images/cagev2.png"));
+
+var _cagev3 = _interopRequireDefault(require("../images/cagev3.png"));
+
+var _cagev4 = _interopRequireDefault(require("../images/cagev4.png"));
+
+var _cagev5 = _interopRequireDefault(require("../images/cagev5.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BASE_SIZE = 50;
+exports.BASE_SIZE = BASE_SIZE;
+var CAGES = [{
+  img: _cagev.default
+}, {
+  img: _cagev2.default
+}, {
+  img: _cagev3.default
+}, {
+  img: _cagev4.default
+}, {
+  img: _cagev5.default
+}];
+exports.CAGES = CAGES;
+},{"../images/cagev1.png":"images/cagev1.png","../images/cagev2.png":"images/cagev2.png","../images/cagev3.png":"images/cagev3.png","../images/cagev4.png":"images/cagev4.png","../images/cagev5.png":"images/cagev5.png"}],"js/cage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addCage = void 0;
+
+var _util = require("./util.js");
+
+var _enums = require("./enums");
+
+var addCage = function addCage(state) {
+  var randNum = (0, _util.randomNumber)(1, 11);
+  var randomCage = (0, _util.randomNumber)(0, 5);
+  var imageWidth = randNum * 10 + _enums.BASE_SIZE;
+  var wrapperData = {
+    size: imageWidth,
+    pointValue: 11 - randNum,
+    position: (0, _util.determinePosition)(imageWidth)
+  };
+  var imageWrapper = document.createElement('div');
+  imageWrapper.classList.add('imageWrapper');
+  imageWrapper.setAttribute("style", "\n    height: ".concat(wrapperData.size, "px;\n    width: ").concat(wrapperData.size, "px;\n    animation: slideDown ").concat((0, _util.determineAnimationTime)(state.currentSpeed), "s linear;\n    left: ").concat(wrapperData.position, "px;\n    "));
+  imageWrapper.setAttribute("data-pointValue", "".concat(wrapperData.pointValue));
+  imageWrapper.addEventListener("click", function () {
+    return (0, _util.addPointValueToScore)(state, imageWrapper);
+  });
+  imageWrapper.addEventListener("animationend", function () {
+    return (0, _util.removeCage)(imageWrapper);
+  });
+  var innerImage = document.createElement('img');
+  innerImage.setAttribute('style', 'width: 100%');
+  innerImage.src = _enums.CAGES[randomCage].img;
+  innerImage.alt = 'Nic Cage';
+  imageWrapper.appendChild(innerImage);
+  document.querySelector('.gameBoard').appendChild(imageWrapper);
+};
+
+exports.addCage = addCage;
+},{"./util.js":"js/util.js","./enums":"js/enums.js"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 var _util = require("./util.js");
 
+var _textFlash = require("./textFlash.js");
+
+var _cage = require("./cage.js");
+
+// Util
+// Components
 var slider = document.querySelector('#speedControl');
 var scoreDisplay = document.querySelector('#currentScore');
 scoreDisplay.innerHTML = 0;
 var startButton = document.querySelector('#startButton');
-var lanes = document.querySelectorAll('.dropLane'); // Global variables
+var resetButton = document.querySelector('#resetButton'); // Global variables
 
 var gameState = {
   currentSpeed: slider.value,
@@ -134,79 +293,50 @@ var gameState = {
   isPlaying: false
 };
 var myInterval;
-
-var addCircle = function addCircle() {
-  var circlePointData = (0, _util.randomNumber)(1, 11);
-  var circleData = {
-    lane: lanes[(0, _util.randomNumber)(0, 8)],
-    size: "".concat(circlePointData * 10, "px"),
-    pointValue: 11 - circlePointData
-  };
-  var circleComponent = document.createElement('div');
-  circleComponent.classList.add('testCircle');
-  circleComponent.setAttribute("style", "height: ".concat(circleData.size, "; width: ").concat(circleData.size, "; animation: slideDown ").concat(determineAnimationTime(), "s linear"));
-  circleComponent.setAttribute("data-pointValue", "".concat(circleData.pointValue));
-  circleComponent.addEventListener("click", function () {
-    return addCircleToScore(circleComponent);
-  });
-  circleComponent.addEventListener("animationend", function () {
-    return removeCircle(circleComponent);
-  });
-  circleData.lane.appendChild(circleComponent);
-};
-
-var updateScore = function updateScore(amtToAdd) {
-  gameState.score += +amtToAdd;
-  scoreDisplay.innerHTML = gameState.score;
-};
-
-var determineAnimationTime = function determineAnimationTime() {
-  var windowHeight = window.innerHeight;
-  var desiredFallRate = gameState.currentSpeed;
-  return windowHeight / desiredFallRate;
-};
-
-var addCircleToScore = function addCircleToScore(circleComponent) {
-  if (gameState.isPlaying) {
-    updateScore(circleComponent.dataset.pointvalue);
-    removeCircle(circleComponent);
-  }
-};
-
-var removeCircle = function removeCircle(circleComponent) {
-  circleComponent.removeEventListener("animationend", removeCircle);
-  circleComponent.parentNode.removeChild(circleComponent);
-};
-
-var updateSliderDisplay = function updateSliderDisplay(newValue) {
-  document.querySelector('#currentSpeed').innerHTML = newValue;
-}; // Update currentSpeed when slider is adjusted
-
+(0, _util.updateSliderHTML)(gameState.currentSpeed); // Update currentSpeed when slider is adjusted
 
 slider.addEventListener('input', function (event) {
   var value = event.target.value;
   gameState.currentSpeed = value;
-  updateSliderDisplay(value);
+  (0, _util.updateSliderHTML)(value);
 }); // Capture button press
 
 startButton.addEventListener('click', function () {
   var isPlaying = gameState.isPlaying;
   gameState.isPlaying = !isPlaying;
-  startButton.innerHTML = gameState.isPlaying ? 'Pause' : 'Start'; // Add a circle to a random lane every second
+  startButton.innerHTML = gameState.isPlaying ? 'Pause' : 'Start'; // TODO: add icons for pause and play
+
+  (0, _textFlash.textFlash)(gameState.isPlaying ? 'play' : 'pause'); // Add a cage to a random lane every second
 
   if (gameState.isPlaying) {
-    myInterval = setInterval(addCircle, 1000);
+    myInterval = setInterval(function () {
+      return (0, _cage.addCage)(gameState);
+    }, 1000);
   } else {
     clearInterval(myInterval);
-  } // Grab all circles from the dom and pause animation
+  } // Grab all cages from the dom and pause animation
 
 
-  var circles = document.querySelectorAll('.testCircle');
-  circles.forEach(function (circle) {
-    circle.style.WebkitAnimationPlayState = gameState.isPlaying ? 'running' : 'paused';
+  var cages = document.querySelectorAll('.imageWrapper');
+  cages.forEach(function (cage) {
+    cage.style.WebkitAnimationPlayState = gameState.isPlaying ? 'running' : 'paused';
+  });
+}); // Reset game
+
+resetButton.addEventListener('click', function () {
+  gameState.score = 0;
+  gameState.isPlaying = false;
+  (0, _util.updateScoreHTML)(0);
+  startButton.innerHTML = 'Start';
+  (0, _textFlash.textFlash)('restart');
+  clearInterval(myInterval); // Remove all cages from dom
+
+  var cages = document.querySelectorAll('.imageWrapper');
+  cages.forEach(function (cage) {
+    (0, _util.removeCage)(cage);
   });
 });
-},{"./util.js":"js/util.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./util.js":"js/util.js","./textFlash.js":"js/textFlash.js","./cage.js":"js/cage.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -233,7 +363,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63501" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49309" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
