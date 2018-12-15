@@ -1,0 +1,22 @@
+@mixin track() { 
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 10px $purple;
+  background: $white;
+  border-radius: 5px;
+  border: 2px solid $white;
+}
+
+@mixin thumb() {
+  box-shadow: 0px 0px 5px $black;
+  border: 1px solid $black;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: $purple;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}

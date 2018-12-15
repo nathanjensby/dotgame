@@ -30,14 +30,37 @@
     <div class="sliderContainer">
       <input type="range" min="10" max="100" step="10" class="slider" id="speedControl">
     </div>
-    <div class="speedContainer">Speed: <span id="currentSpeed"></span></div>
+    <div class="speedContainer">Speed:<div id="currentSpeed"></div>
+    </div>
     <div class="menuContainer">
-      <button>
-        <span>-</span>
+      <button id="instructions">
+        <span>?</span>
       </button>
     </div>
   </aside>
-
+  <div class="modalOverlay">
+    <div class="closeContainer">
+      <button class="close">x</button>
+    </div>
+    <div class="modalContent">
+      <h1 class="modalTitle">INSTRUCTIONS</h1>
+      <ul>
+        <li>The game starts when a player touches or clicks the Start button; at that point, the Start button changes
+          to
+          a Pause button, which will pause the game until the button is touched or clicked again.</li>
+        <li>Nic Cages fall at a constant rate. The slider controls the rate at which Nic Cages fall; at the slider's
+          bottom-most position, Nic Cages fall at a speed of 10px per second, and at the slider's top-most position,
+          fall
+          at a speed of 100px per second.</li>
+        <li>A new Nic Cage appears at a random horizontal position at the top of the box every second.</li>
+        <li>Nic Cages vary randomly in size from 10px in diameter to 100px in diameter.</li>
+        <li>A Nic Cage's value is inversely proportional to its size, with the smallest Nic Cages worth 10 points, and
+          the largest Nic Cages worth 1 point.</li>
+        <li>When a player touches or clicks a Nic Cage, the Nic Cage disappears from the box, and the score is
+          increased based on the Nic Cage's value.</li>
+      </ul>
+    </div>
+  </div>
   <script src="/js.00a46daa.js"></script>
 </body>
 
