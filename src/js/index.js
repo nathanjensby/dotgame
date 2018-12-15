@@ -1,5 +1,5 @@
 // Util
-import { updateSliderHTML, updateSliderHeight, removeCage, updateScoreHTML } from './util.js';
+import { updateSliderHTML, updateSliderHeight, resetGameBoard, updateStartButtonHTML, pauseCages, updateScoreHTML } from './util.js';
 
 // Components
 import { textFlash } from './textFlash.js';
@@ -7,10 +7,10 @@ import { addCage } from './cage.js';
 
 
 const slider = document.querySelector('#speedControl');
-const scoreDisplay = document.querySelector('#currentScore');
-scoreDisplay.innerHTML = 0;
 const startButton = document.querySelector('#startButton');
 const resetButton = document.querySelector('#resetButton');
+const instructionsButton = document.querySelector('#instructions');
+const closeModalButton = document.querySelector('.close');
 
 // Global variables
 let gameState = {
@@ -22,9 +22,10 @@ let myInterval;
 
 window.addEventListener('resize', () => {
   updateSliderHeight();
-})
+});
 
 updateSliderHTML(gameState.currentSpeed);
+updateScoreHTML(0);
 updateSliderHeight();
 
 // Update currentSpeed when slider is adjusted
@@ -38,11 +39,10 @@ slider.addEventListener('input', (event) => {
 startButton.addEventListener('click', () => {
   const { isPlaying } = gameState;
   gameState.isPlaying = !isPlaying;
-  startButton.innerHTML = gameState.isPlaying ? 'Pause' : 'Start';
-  // TODO: add icons for pause and play
+  updateStartButtonHTML(gameState.isPlaying);
   textFlash(gameState.isPlaying ? 'play' : 'pause');
 
-  // Add a cage to a random lane every second
+  // Add a cage to a random spot every second
   if (gameState.isPlaying) {
     myInterval = setInterval(() => addCage(gameState), 1000);
   } else {
@@ -50,24 +50,27 @@ startButton.addEventListener('click', () => {
   }
 
   // Grab all cages from the dom and pause animation
-  const cages = document.querySelectorAll('.imageWrapper');
-  cages.forEach((cage) => {
-    cage.style.WebkitAnimationPlayState = gameState.isPlaying ? 'running' : 'paused';
-  })
-})
+  pauseCages(gameState.isPlaying);
+});
 
 // Reset game
 resetButton.addEventListener('click', () => {
-  gameState.score = 0;
-  gameState.isPlaying = false;
-  updateScoreHTML(0);
-  startButton.innerHTML = 'Start';
   textFlash('restart');
-  clearInterval(myInterval);
+  resetGameBoard(gameState, myInterval);
+});
 
-  // Remove all cages from dom
-  const cages = document.querySelectorAll('.imageWrapper');
-  cages.forEach((cage) => {
-    removeCage(cage);
-  })
-})
+// Open modal
+instructionsButton.addEventListener('click', () => {
+  const modal = document.querySelector('.modalOverlay');
+  modal.classList.add('active');
+  pauseCages();
+  updateStartButtonHTML(false);
+  gameState.isPlaying = false;
+  clearInterval(myInterval);
+});
+
+// Close modal
+closeModalButton.addEventListener('click', () => {
+  const modal = document.querySelector('.modalOverlay');
+  modal.classList.remove('active');
+});

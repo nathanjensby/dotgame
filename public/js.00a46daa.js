@@ -110,7 +110,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateSliderHeight = exports.updateScore = exports.addPointValueToScore = exports.removeCage = exports.updateSliderHTML = exports.updateScoreHTML = exports.determinePosition = exports.determineAnimationTime = exports.randomNumber = void 0;
+exports.updateStartButtonHTML = exports.updateSliderHTML = exports.updateSliderHeight = exports.updateScore = exports.updateScoreHTML = exports.resetGameBoard = exports.removeCage = exports.randomNumber = exports.pauseCages = exports.determinePosition = exports.determineAnimationTime = exports.addPointValueToScore = void 0;
 
 var randomNumber = function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -118,12 +118,15 @@ var randomNumber = function randomNumber(min, max) {
 
 exports.randomNumber = randomNumber;
 
-var determineAnimationTime = function determineAnimationTime(desiredFallRate) {
-  var windowHeight = window.innerHeight;
-  return windowHeight / desiredFallRate;
-};
+var updateSliderHeight = function updateSliderHeight() {
+  var sliderContainer = document.querySelector('.sliderContainer');
+  var slider = document.querySelector('.slider');
+  var newHeight = sliderContainer.getBoundingClientRect().height;
+  slider.setAttribute('style', "\n    width: ".concat(newHeight, "px;\n    transform-origin: ").concat(newHeight / 2, "px ").concat(newHeight / 2, "px\n  "));
+}; // Update HTML methods
 
-exports.determineAnimationTime = determineAnimationTime;
+
+exports.updateSliderHeight = updateSliderHeight;
 
 var updateScoreHTML = function updateScoreHTML(newScore) {
   return document.querySelector('#currentScore').innerHTML = newScore;
@@ -131,20 +134,48 @@ var updateScoreHTML = function updateScoreHTML(newScore) {
 
 exports.updateScoreHTML = updateScoreHTML;
 
+var updateStartButtonHTML = function updateStartButtonHTML(isPlaying) {
+  return document.querySelector('#startButton').innerHTML = isPlaying ? 'Pause' : 'Start';
+};
+
+exports.updateStartButtonHTML = updateStartButtonHTML;
+
 var updateSliderHTML = function updateSliderHTML(newValue) {
   return document.querySelector('#currentSpeed').innerHTML = "".concat(newValue, " px/s");
 };
 
 exports.updateSliderHTML = updateSliderHTML;
 
-var updateSliderHeight = function updateSliderHeight() {
-  var sliderContainer = document.querySelector('.sliderContainer');
-  var slider = document.querySelector('.slider');
-  var newHeight = sliderContainer.getBoundingClientRect().height;
-  slider.setAttribute('style', "\n    width: ".concat(newHeight, "px;\n    transform-origin: ").concat(newHeight / 2, "px ").concat(newHeight / 2, "px\n  "));
+var updateScore = function updateScore(state, amtToAdd) {
+  state.score += +amtToAdd;
+  document.querySelector('#currentScore').innerHTML = state.score;
+}; // Cage methods
+
+
+exports.updateScore = updateScore;
+
+var pauseCages = function pauseCages() {
+  var isPlaying = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var cages = document.querySelectorAll('.imageWrapper');
+  cages.forEach(function (cage) {
+    cage.style.WebkitAnimationPlayState = isPlaying ? 'running' : 'paused';
+
+    if (isPlaying) {
+      cage.classList.remove('inactive');
+    } else {
+      cage.classList.add('inactive');
+    }
+  });
 };
 
-exports.updateSliderHeight = updateSliderHeight;
+exports.pauseCages = pauseCages;
+
+var removeCage = function removeCage(imageWrapper) {
+  imageWrapper.removeEventListener("animationend", removeCage);
+  imageWrapper.parentNode.removeChild(imageWrapper);
+};
+
+exports.removeCage = removeCage;
 
 var determinePosition = function determinePosition(imageWidth) {
   var maxWidth = document.querySelector('.gameBoard').clientWidth;
@@ -153,12 +184,12 @@ var determinePosition = function determinePosition(imageWidth) {
 
 exports.determinePosition = determinePosition;
 
-var removeCage = function removeCage(imageWrapper) {
-  imageWrapper.removeEventListener("animationend", removeCage);
-  imageWrapper.parentNode.removeChild(imageWrapper);
+var determineAnimationTime = function determineAnimationTime(desiredFallRate) {
+  var windowHeight = window.innerHeight;
+  return windowHeight / desiredFallRate;
 };
 
-exports.removeCage = removeCage;
+exports.determineAnimationTime = determineAnimationTime;
 
 var addPointValueToScore = function addPointValueToScore(state, imageWrapper) {
   if (state.isPlaying) {
@@ -169,12 +200,23 @@ var addPointValueToScore = function addPointValueToScore(state, imageWrapper) {
 
 exports.addPointValueToScore = addPointValueToScore;
 
-var updateScore = function updateScore(state, amtToAdd) {
-  state.score += +amtToAdd;
-  document.querySelector('#currentScore').innerHTML = state.score;
+var resetGameBoard = function resetGameBoard(gameState, myInterval) {
+  gameState.score = 0;
+  gameState.isPlaying = false;
+  gameState.currentSpeed = 60;
+  updateScoreHTML(gameState.score);
+  updateSliderHTML(gameState.currentSpeed);
+  updateStartButtonHTML(false);
+  document.querySelector('#speedControl').value = 60;
+  clearInterval(myInterval); // Remove all cages from dom
+
+  var cages = document.querySelectorAll('.imageWrapper');
+  cages.forEach(function (cage) {
+    removeCage(cage);
+  });
 };
 
-exports.updateScore = updateScore;
+exports.resetGameBoard = resetGameBoard;
 },{}],"js/textFlash.js":[function(require,module,exports) {
 "use strict";
 
@@ -291,10 +333,10 @@ var _cage = require("./cage.js");
 // Util
 // Components
 var slider = document.querySelector('#speedControl');
-var scoreDisplay = document.querySelector('#currentScore');
-scoreDisplay.innerHTML = 0;
 var startButton = document.querySelector('#startButton');
-var resetButton = document.querySelector('#resetButton'); // Global variables
+var resetButton = document.querySelector('#resetButton');
+var instructionsButton = document.querySelector('#instructions');
+var closeModalButton = document.querySelector('.close'); // Global variables
 
 var gameState = {
   currentSpeed: slider.value,
@@ -306,6 +348,7 @@ window.addEventListener('resize', function () {
   (0, _util.updateSliderHeight)();
 });
 (0, _util.updateSliderHTML)(gameState.currentSpeed);
+(0, _util.updateScoreHTML)(0);
 (0, _util.updateSliderHeight)(); // Update currentSpeed when slider is adjusted
 
 slider.addEventListener('input', function (event) {
@@ -317,9 +360,8 @@ slider.addEventListener('input', function (event) {
 startButton.addEventListener('click', function () {
   var isPlaying = gameState.isPlaying;
   gameState.isPlaying = !isPlaying;
-  startButton.innerHTML = gameState.isPlaying ? 'Pause' : 'Start'; // TODO: add icons for pause and play
-
-  (0, _textFlash.textFlash)(gameState.isPlaying ? 'play' : 'pause'); // Add a cage to a random lane every second
+  (0, _util.updateStartButtonHTML)(gameState.isPlaying);
+  (0, _textFlash.textFlash)(gameState.isPlaying ? 'play' : 'pause'); // Add a cage to a random spot every second
 
   if (gameState.isPlaying) {
     myInterval = setInterval(function () {
@@ -330,24 +372,26 @@ startButton.addEventListener('click', function () {
   } // Grab all cages from the dom and pause animation
 
 
-  var cages = document.querySelectorAll('.imageWrapper');
-  cages.forEach(function (cage) {
-    cage.style.WebkitAnimationPlayState = gameState.isPlaying ? 'running' : 'paused';
-  });
+  (0, _util.pauseCages)(gameState.isPlaying);
 }); // Reset game
 
 resetButton.addEventListener('click', function () {
-  gameState.score = 0;
-  gameState.isPlaying = false;
-  (0, _util.updateScoreHTML)(0);
-  startButton.innerHTML = 'Start';
   (0, _textFlash.textFlash)('restart');
-  clearInterval(myInterval); // Remove all cages from dom
+  (0, _util.resetGameBoard)(gameState, myInterval);
+}); // Open modal
 
-  var cages = document.querySelectorAll('.imageWrapper');
-  cages.forEach(function (cage) {
-    (0, _util.removeCage)(cage);
-  });
+instructionsButton.addEventListener('click', function () {
+  var modal = document.querySelector('.modalOverlay');
+  modal.classList.add('active');
+  (0, _util.pauseCages)();
+  (0, _util.updateStartButtonHTML)(false);
+  gameState.isPlaying = false;
+  clearInterval(myInterval);
+}); // Close modal
+
+closeModalButton.addEventListener('click', function () {
+  var modal = document.querySelector('.modalOverlay');
+  modal.classList.remove('active');
 });
 },{"./util.js":"js/util.js","./textFlash.js":"js/textFlash.js","./cage.js":"js/cage.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];

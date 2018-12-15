@@ -4,6 +4,22 @@
   }
 
   100% {
-    transform: translateY(100vh);
+    transform: translateY(105vh);
   }
+}
+
+@keyframes textFlash {
+  0% { opacity: 0; }
+
+  25% { opacity: 1; }
+
+  100% { opacity: 0; }
+}
+
+@keyframes rotateAndFlash {
+  0% { opacity: 0; }
+
+  25% { opacity: 1; }
+
+  100% { opacity: 0; transform: rotate(360deg) }
 }
