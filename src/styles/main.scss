@@ -98,12 +98,23 @@ main {
 
 aside.controls {
   align-items: center;
-  border-left: 1px solid $white;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid $white;
+  border-right: none;
   color: $white;
   display: flex;
   flex-direction: column;
   margin: 2.5em 0;
-  padding: 0 20px;
+  padding: 10px;
+
+  @include tablet {
+    padding: 20px;
+  }
+
+  @include desktop {
+    padding: 20px;
+  }
+
 
   .gameButtons {
     margin-bottom: 2.5em;
