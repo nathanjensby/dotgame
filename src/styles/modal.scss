@@ -23,10 +23,20 @@
     .modalTitle {
       text-align: center;
     }
+
+    ul {
+      padding: 10px;
+
+      li {
+        margin-bottom: 10px;
+        list-style-type: none;
+      }
+    }
   }
 
   button {
     margin: 2.5em;
+    min-width: 30px;
     position: absolute;
     right: 0;
     top: 0;

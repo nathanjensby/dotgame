@@ -31,6 +31,11 @@ main {
     right: 0;
     top: 10px;
     font-size: 6em;
+
+    #currentScore {
+      position: relative;
+      z-index: 1;
+    }
   }
 
   .textFlash {

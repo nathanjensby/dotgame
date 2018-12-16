@@ -21,17 +21,19 @@
     opacity: 0;
     transform: rotate(360deg); } }
 
-button.btn {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #b8b3e9;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 1.5em;
-  padding: .625em;
-  width: 100%; }
-  button.btn:focus {
-    outline: 0;
-    text-decoration: underline; }
+button {
+  touch-action: manipulation; }
+  button.btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #b8b3e9;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    padding: .625em;
+    width: 100%; }
+    button.btn:focus {
+      outline: 0;
+      text-decoration: underline; }
 
 .modalOverlay {
   background-color: rgba(0, 0, 0, 0.9);
@@ -53,8 +55,14 @@ button.btn {
     transform: translate(-50%, -50%); }
     .modalOverlay .modalContent .modalTitle {
       text-align: center; }
+    .modalOverlay .modalContent ul {
+      padding: 10px; }
+      .modalOverlay .modalContent ul li {
+        margin-bottom: 10px;
+        list-style-type: none; }
   .modalOverlay button {
     margin: 2.5em;
+    min-width: 30px;
     position: absolute;
     right: 0;
     top: 0;
@@ -63,6 +71,7 @@ button.btn {
 .imageWrapper {
   background: none;
   border: none;
+  padding: 0;
   position: absolute; }
   .imageWrapper.inactive {
     cursor: not-allowed; }
@@ -167,6 +176,9 @@ main {
     right: 0;
     top: 10px;
     font-size: 6em; }
+    main header #currentScore {
+      position: relative;
+      z-index: 1; }
   main .textFlash {
     color: #FFFFFF;
     font-size: 100px;
