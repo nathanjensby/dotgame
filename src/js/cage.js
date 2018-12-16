@@ -1,9 +1,9 @@
 import { randomNumber, determineAnimationTime, determinePosition, removeCage, addPointValueToScore, updateScore } from './util.js';
-import { CAGES, BASE_SIZE, BASE_SPEED } from './enums';
+import { CAGES, BASE_SIZE } from './enums';
 
 export const addCage = (state) => {
   const randNum = randomNumber(1, 11);
-  const randomCage = randomNumber(0, 5);
+  const randomCage = randomNumber(0, CAGES.length);
   const imageWidth = (randNum * 10) + BASE_SIZE;
   const wrapperData = {
     size: imageWidth,

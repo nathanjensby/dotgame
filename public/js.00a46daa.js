@@ -248,6 +248,14 @@ module.exports = "/cagev3.04b6021b.png";
 module.exports = "/cagev4.750c9310.png";
 },{}],"images/cagev5.png":[function(require,module,exports) {
 module.exports = "/cagev5.100b1ead.png";
+},{}],"images/cagev6.png":[function(require,module,exports) {
+module.exports = "/cagev6.db977ddc.png";
+},{}],"images/cagev7.png":[function(require,module,exports) {
+module.exports = "/cagev7.aec0c78c.png";
+},{}],"images/cagev8.png":[function(require,module,exports) {
+module.exports = "/cagev8.59126c9b.png";
+},{}],"images/cagev9.png":[function(require,module,exports) {
+module.exports = "/cagev9.7c3bae3f.png";
 },{}],"js/enums.js":[function(require,module,exports) {
 "use strict";
 
@@ -266,6 +274,14 @@ var _cagev4 = _interopRequireDefault(require("../images/cagev4.png"));
 
 var _cagev5 = _interopRequireDefault(require("../images/cagev5.png"));
 
+var _cagev6 = _interopRequireDefault(require("../images/cagev6.png"));
+
+var _cagev7 = _interopRequireDefault(require("../images/cagev7.png"));
+
+var _cagev8 = _interopRequireDefault(require("../images/cagev8.png"));
+
+var _cagev9 = _interopRequireDefault(require("../images/cagev9.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var BASE_SIZE = 50;
@@ -280,9 +296,17 @@ var CAGES = [{
   img: _cagev4.default
 }, {
   img: _cagev5.default
+}, {
+  img: _cagev6.default
+}, {
+  img: _cagev7.default
+}, {
+  img: _cagev8.default
+}, {
+  img: _cagev9.default
 }];
 exports.CAGES = CAGES;
-},{"../images/cagev1.png":"images/cagev1.png","../images/cagev2.png":"images/cagev2.png","../images/cagev3.png":"images/cagev3.png","../images/cagev4.png":"images/cagev4.png","../images/cagev5.png":"images/cagev5.png"}],"js/cage.js":[function(require,module,exports) {
+},{"../images/cagev1.png":"images/cagev1.png","../images/cagev2.png":"images/cagev2.png","../images/cagev3.png":"images/cagev3.png","../images/cagev4.png":"images/cagev4.png","../images/cagev5.png":"images/cagev5.png","../images/cagev6.png":"images/cagev6.png","../images/cagev7.png":"images/cagev7.png","../images/cagev8.png":"images/cagev8.png","../images/cagev9.png":"images/cagev9.png"}],"js/cage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -296,7 +320,7 @@ var _enums = require("./enums");
 
 var addCage = function addCage(state) {
   var randNum = (0, _util.randomNumber)(1, 11);
-  var randomCage = (0, _util.randomNumber)(0, 5);
+  var randomCage = (0, _util.randomNumber)(0, _enums.CAGES.length);
   var imageWidth = randNum * 10 + _enums.BASE_SIZE;
   var wrapperData = {
     size: imageWidth,
