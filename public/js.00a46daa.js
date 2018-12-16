@@ -179,7 +179,7 @@ exports.removeCage = removeCage;
 
 var determinePosition = function determinePosition(imageWidth) {
   var maxWidth = document.querySelector('.gameBoard').clientWidth;
-  return randomNumber(0 + imageWidth / 2, maxWidth - imageWidth / 2);
+  return randomNumber(imageWidth / 2, maxWidth - imageWidth / 2);
 };
 
 exports.determinePosition = determinePosition;

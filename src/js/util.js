@@ -36,7 +36,7 @@ const removeCage = (imageWrapper) => {
 }
 const determinePosition = (imageWidth) => {
   const maxWidth = document.querySelector('.gameBoard').clientWidth;
-  return randomNumber(0 + (imageWidth / 2), maxWidth - (imageWidth / 2));
+  return randomNumber((imageWidth / 2), maxWidth - (imageWidth / 2));
 }
 const determineAnimationTime = (desiredFallRate) => {
   const windowHeight = window.innerHeight;
