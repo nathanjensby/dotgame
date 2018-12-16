@@ -5,12 +5,13 @@ import { updateSliderHTML, updateSliderHeight, resetGameBoard, updateStartButton
 import { textFlash } from './textFlash.js';
 import { addCage } from './cage.js';
 
-
 const slider = document.querySelector('#speedControl');
 const startButton = document.querySelector('#startButton');
 const resetButton = document.querySelector('#resetButton');
 const instructionsButton = document.querySelector('#instructions');
 const closeModalButton = document.querySelector('.close');
+
+// TODO: splash page?
 
 // Global variables
 let gameState = {
