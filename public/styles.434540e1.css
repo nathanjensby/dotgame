@@ -67,6 +67,12 @@ button {
     right: 0;
     top: 0;
     width: 0; }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .modalOverlay button {
+        min-width: 100px; } }
+    @media (min-width: 1024px) {
+      .modalOverlay button {
+        min-width: 100px; } }
 
 .imageWrapper {
   background: none;
