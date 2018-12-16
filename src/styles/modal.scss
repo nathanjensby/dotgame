@@ -41,5 +41,11 @@
     right: 0;
     top: 0;
     width: 0;
+    @include tablet {
+      min-width: 100px;
+    }
+    @include desktop {
+      min-width: 100px;
+    }
   }
 }
