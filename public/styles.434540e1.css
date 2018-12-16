@@ -21,17 +21,19 @@
     opacity: 0;
     transform: rotate(360deg); } }
 
-button.btn {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #b8b3e9;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 1.5em;
-  padding: .625em;
-  width: 100%; }
-  button.btn:focus {
-    outline: 0;
-    text-decoration: underline; }
+button {
+  touch-action: manipulation; }
+  button.btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #b8b3e9;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    padding: .625em;
+    width: 100%; }
+    button.btn:focus {
+      outline: 0;
+      text-decoration: underline; }
 
 .modalOverlay {
   background-color: rgba(0, 0, 0, 0.9);
