@@ -12,7 +12,7 @@ export const addCage = (state) => {
   };
 
 
-  const imageWrapper = document.createElement('div');
+  const imageWrapper = document.createElement('button');
   imageWrapper.classList.add('imageWrapper');
   imageWrapper.setAttribute("style", `
     height: ${wrapperData.size}px;
@@ -22,7 +22,6 @@ export const addCage = (state) => {
     `);
   imageWrapper.setAttribute("data-pointValue", `${wrapperData.pointValue}`);
   imageWrapper.addEventListener("click", () => addPointValueToScore(state, imageWrapper));
-  imageWrapper.addEventListener("touchstart", () => addPointValueToScore(state, imageWrapper));
   imageWrapper.addEventListener("animationend", () => removeCage(imageWrapper));
 
   const innerImage = document.createElement('img');
