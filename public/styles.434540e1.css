@@ -27,8 +27,9 @@ button {
   border-radius: 10px;
   color: #FFFFFF;
   font-size: 1.5em;
+  min-width: 100px;
   padding: .625em;
-  min-width: 100px; }
+  width: 100%; }
   button:focus {
     outline: 0;
     text-decoration: underline; }
@@ -69,33 +70,33 @@ input[type=range] {
   input[type=range]::-webkit-slider-thumb {
     box-shadow: 0px 0px 5px #171016;
     border: 1px solid #171016;
-    height: 18px;
+    height: 72px;
     width: 18px;
     border-radius: 25px;
     background: #b8b3e9;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -7px; }
+    margin-top: -35px; }
   input[type=range]::-moz-range-thumb {
     box-shadow: 0px 0px 5px #171016;
     border: 1px solid #171016;
-    height: 18px;
+    height: 72px;
     width: 18px;
     border-radius: 25px;
     background: #b8b3e9;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -7px; }
+    margin-top: -35px; }
   input[type=range]::-ms-thumb {
     box-shadow: 0px 0px 5px #171016;
     border: 1px solid #171016;
-    height: 18px;
+    height: 72px;
     width: 18px;
     border-radius: 25px;
     background: #b8b3e9;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -7px; }
+    margin-top: -35px; }
 
 body {
   background-image: url("spaaaace.ab29f791.jpg");
@@ -103,9 +104,16 @@ body {
   background-repeat: no-repeat;
   display: flex;
   font-family: "Noto Sans", sans-serif;
-  font-size: 16px;
+  font-size: 32px;
   margin: 0;
+  overflow: hidden;
   position: relative; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    body {
+      font-size: 18px; } }
+  @media (min-width: 1024px) {
+    body {
+      font-size: 16px; } }
 
 main {
   flex: 1;
@@ -197,6 +205,8 @@ aside.controls {
     text-align: center;
     font-size: 1.25em;
     margin: 2.5em 0; }
+  aside.controls .menuContainer {
+    width: 100%; }
 
 .imageWrapper {
   position: absolute; }
@@ -231,7 +241,7 @@ aside.controls {
     .modalOverlay .modalContent .modalTitle {
       text-align: center; }
   .modalOverlay button {
+    margin: 2.5em;
     position: absolute;
     right: 0;
-    top: 0;
-    margin: 2.5em; }
+    top: 0; }

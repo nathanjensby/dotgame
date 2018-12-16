@@ -4,9 +4,18 @@ body {
   background-repeat: no-repeat;
   display: flex;
   font-family: $nonto;
-  font-size: $baseFontSize;
+  font-size: 32px;
   margin: 0;
+  overflow: hidden;
   position: relative;
+  
+  @include tablet {
+    font-size: 18px;
+  }
+
+  @include desktop {
+    font-size: 16px;
+  }
 }
 
 main {
@@ -89,10 +98,11 @@ aside.controls {
   display: flex;
   flex-direction: column;
   margin: 40px 0;
-  padding: 0 20px; 
+  padding: 0 20px;
 
   .gameButtons {
     margin-bottom: 40px;
+
     div.startContainer {
       margin-bottom: 40px;
     }
@@ -120,6 +130,10 @@ aside.controls {
     text-align: center;
     font-size: 1.25em;
     margin: 2.5em 0;
+  }
+
+  .menuContainer {
+    width: 100%;
   }
 
 }
@@ -169,11 +183,10 @@ aside.controls {
     }
   }
 
-
   button {
+    margin: 2.5em;
     position: absolute;
     right: 0;
     top: 0;
-    margin: 2.5em;
   }
 }

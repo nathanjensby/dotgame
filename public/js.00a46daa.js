@@ -309,6 +309,9 @@ var addCage = function addCage(state) {
   imageWrapper.addEventListener("click", function () {
     return (0, _util.addPointValueToScore)(state, imageWrapper);
   });
+  imageWrapper.addEventListener("touchstart", function () {
+    return (0, _util.addPointValueToScore)(state, imageWrapper);
+  });
   imageWrapper.addEventListener("animationend", function () {
     return (0, _util.removeCage)(imageWrapper);
   });
@@ -336,7 +339,8 @@ var slider = document.querySelector('#speedControl');
 var startButton = document.querySelector('#startButton');
 var resetButton = document.querySelector('#resetButton');
 var instructionsButton = document.querySelector('#instructions');
-var closeModalButton = document.querySelector('.close'); // Global variables
+var closeModalButton = document.querySelector('.close'); // TODO: splash page?
+// Global variables
 
 var gameState = {
   currentSpeed: slider.value,
