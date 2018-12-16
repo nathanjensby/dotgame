@@ -234,12 +234,20 @@ main {
 
 aside.controls {
   align-items: center;
-  border-left: 1px solid #FFFFFF;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #FFFFFF;
+  border-right: none;
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
   margin: 2.5em 0;
-  padding: 0 20px; }
+  padding: 10px; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    aside.controls {
+      padding: 20px; } }
+  @media (min-width: 1024px) {
+    aside.controls {
+      padding: 20px; } }
   aside.controls .gameButtons {
     margin-bottom: 2.5em; }
     aside.controls .gameButtons div.startContainer {
