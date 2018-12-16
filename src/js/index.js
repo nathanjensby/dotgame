@@ -11,7 +11,14 @@ const resetButton = document.querySelector('#resetButton');
 const instructionsButton = document.querySelector('#instructions');
 const closeModalButton = document.querySelector('.close');
 
-// TODO: splash page?
+let doubleTouchStartTimestamp = 0;
+document.addEventListener("touchstart", (event) => {
+    let now = +(new Date());
+    if (doubleTouchStartTimestamp + 50 > now){
+        event.preventDefault();
+    };
+    doubleTouchStartTimestamp = now;
+});
 
 // Global variables
 let gameState = {
