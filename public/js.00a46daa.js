@@ -336,18 +336,7 @@ var slider = document.querySelector('#speedControl');
 var startButton = document.querySelector('#startButton');
 var resetButton = document.querySelector('#resetButton');
 var instructionsButton = document.querySelector('#instructions');
-var closeModalButton = document.querySelector('.close');
-var doubleTouchStartTimestamp = 0;
-document.addEventListener("touchstart", function (event) {
-  var now = +new Date();
-
-  if (doubleTouchStartTimestamp + 50 > now) {
-    event.preventDefault();
-  }
-
-  ;
-  doubleTouchStartTimestamp = now;
-}); // Global variables
+var closeModalButton = document.querySelector('.close'); // Global variables
 
 var gameState = {
   currentSpeed: slider.value,

@@ -27,7 +27,6 @@ button.btn {
   border-radius: 10px;
   color: #FFFFFF;
   font-size: 1.5em;
-  min-width: 100px;
   padding: .625em;
   width: 100%; }
   button.btn:focus {
@@ -111,51 +110,33 @@ input[type=range] {
   input[type=range]::-webkit-slider-thumb {
     box-shadow: 0px 0px 5px #171016;
     border: 1px solid #171016;
-    height: 72px;
-    width: 72px;
-    border-radius: 72px;
+    height: 36px;
+    width: 36px;
+    border-radius: 36px;
     background: #b8b3e9;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -35px; }
-    @media (min-width: 1024px) {
-      input[type=range]::-webkit-slider-thumb {
-        height: 36px;
-        width: 36px;
-        border-radius: 36px;
-        margin-top: -17px; } }
+    margin-top: -17px; }
   input[type=range]::-moz-range-thumb {
     box-shadow: 0px 0px 5px #171016;
     border: 1px solid #171016;
-    height: 72px;
-    width: 72px;
-    border-radius: 72px;
+    height: 36px;
+    width: 36px;
+    border-radius: 36px;
     background: #b8b3e9;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -35px; }
-    @media (min-width: 1024px) {
-      input[type=range]::-moz-range-thumb {
-        height: 36px;
-        width: 36px;
-        border-radius: 36px;
-        margin-top: -17px; } }
+    margin-top: -17px; }
   input[type=range]::-ms-thumb {
     box-shadow: 0px 0px 5px #171016;
     border: 1px solid #171016;
-    height: 72px;
-    width: 72px;
-    border-radius: 72px;
+    height: 36px;
+    width: 36px;
+    border-radius: 36px;
     background: #b8b3e9;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -35px; }
-    @media (min-width: 1024px) {
-      input[type=range]::-ms-thumb {
-        height: 36px;
-        width: 36px;
-        border-radius: 36px;
-        margin-top: -17px; } }
+    margin-top: -17px; }
 
 body {
   background-image: url("spaaaace.ab29f791.jpg");
@@ -163,7 +144,7 @@ body {
   background-repeat: no-repeat;
   display: flex;
   font-family: "Noto Sans", sans-serif;
-  font-size: 32px;
+  font-size: 8px;
   margin: 0;
   overflow: hidden;
   position: relative; }
@@ -239,12 +220,12 @@ aside.controls {
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
-  margin: 40px 0;
+  margin: 2.5em 0;
   padding: 0 20px; }
   aside.controls .gameButtons {
-    margin-bottom: 40px; }
+    margin-bottom: 2.5em; }
     aside.controls .gameButtons div.startContainer {
-      margin-bottom: 40px; }
+      margin-bottom: 2.5em; }
   aside.controls .sliderContainer {
     flex: 1;
     position: relative;
