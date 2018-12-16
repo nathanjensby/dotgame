@@ -1,0 +1,35 @@
+.modalOverlay {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: $black;
+  display: none;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+
+  &.active {
+    display: block;
+  }
+
+  .modalContent {
+    background-color: $purple;
+    margin: 0;
+    left: 50%;
+    padding: 2.5em;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    .modalTitle {
+      text-align: center;
+    }
+  }
+
+  button {
+    margin: 2.5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+  }
+}

@@ -1,0 +1,18 @@
+
+.imageWrapper {
+  position: absolute;
+
+  &.inactive {
+    cursor: not-allowed;
+    img {
+      -webkit-filter: $sillhouette;
+      filter: $sillhouette;
+      opacity: 1;
+    }
+  }
+  img {
+    -webkit-filter: drop-shadow($drop-shadow);
+    filter: drop-shadow($drop-shadow);
+
+  }
+}

@@ -8,7 +8,7 @@ body {
   margin: 0;
   overflow: hidden;
   position: relative;
-  
+
   @include tablet {
     font-size: 18px;
   }
@@ -125,7 +125,7 @@ aside.controls {
       transform: rotate(-90deg);
     }
   }
-  
+
   .speedContainer {
     text-align: center;
     font-size: 1.25em;
@@ -136,57 +136,4 @@ aside.controls {
     width: 100%;
   }
 
-}
-
-.imageWrapper {
-  position: absolute;
-
-  &.inactive {
-    cursor: not-allowed;
-    img {
-      -webkit-filter: $sillhouette;
-      filter: $sillhouette;
-      opacity: 1;
-    }
-  }
-  img {
-    -webkit-filter: drop-shadow($drop-shadow);
-    filter: drop-shadow($drop-shadow);
-
-  }
-}
-
-.modalOverlay {
-  background-color: rgba(0, 0, 0, 0.9);
-  color: $black;
-  display: none;
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-
-  &.active {
-    display: block;
-  }
-
-  .modalContent {
-    background-color: $purple;
-    margin: 0;
-    left: 50%;
-    padding: 2.5em;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-
-    .modalTitle {
-      text-align: center;
-    }
-  }
-
-  button {
-    margin: 2.5em;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
 }
