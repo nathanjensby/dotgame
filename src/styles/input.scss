@@ -1,0 +1,39 @@
+input[type=range] {
+  background: transparent;
+  height: 25px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+
+  &::-webkit-slider-runnable-track { @include track }
+  &::-moz-range-track { @include track }
+  &::-ms-track { @include track }
+
+  &::-webkit-slider-thumb { 
+    @include thumb;
+    @include desktop {
+      height: 36px;
+      width: 36px;
+      border-radius: 36px;
+      margin-top: -17px;
+    }
+   }
+  &::-moz-range-thumb{ 
+    @include thumb;
+    @include desktop {
+      height: 36px;
+      width: 36px;
+      border-radius: 36px;
+      margin-top: -17px;
+    }
+   }
+  &::-ms-thumb { 
+    @include thumb;
+    @include desktop {
+      height: 36px;
+      width: 36px;
+      border-radius: 36px;
+      margin-top: -17px;
+    }
+   }
+}

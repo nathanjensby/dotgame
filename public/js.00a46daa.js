@@ -302,14 +302,11 @@ var addCage = function addCage(state) {
     pointValue: 11 - randNum,
     position: (0, _util.determinePosition)(imageWidth)
   };
-  var imageWrapper = document.createElement('div');
+  var imageWrapper = document.createElement('button');
   imageWrapper.classList.add('imageWrapper');
   imageWrapper.setAttribute("style", "\n    height: ".concat(wrapperData.size, "px;\n    width: ").concat(wrapperData.size, "px;\n    animation: slideDown ").concat((0, _util.determineAnimationTime)(state.currentSpeed), "s linear;\n    left: ").concat(wrapperData.position, "px;\n    "));
   imageWrapper.setAttribute("data-pointValue", "".concat(wrapperData.pointValue));
   imageWrapper.addEventListener("click", function () {
-    return (0, _util.addPointValueToScore)(state, imageWrapper);
-  });
-  imageWrapper.addEventListener("touchstart", function () {
     return (0, _util.addPointValueToScore)(state, imageWrapper);
   });
   imageWrapper.addEventListener("animationend", function () {
