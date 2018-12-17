@@ -1,3 +1,5 @@
+import { BASE_RATE } from './enums';
+
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 const updateSliderHeight = () => {
   const sliderContainer = document.querySelector('.sliderContainer');
@@ -24,9 +26,9 @@ const pauseCages = (isPlaying = false) => {
   cages.forEach((cage) => {
     cage.style.WebkitAnimationPlayState = isPlaying ? 'running' : 'paused';
     if (isPlaying) {
-      cage.classList.remove('inactive');
+      cage.disabled = false;
     } else {
-      cage.classList.add('inactive');
+      cage.disabled = true;
     }
   })
 }
@@ -40,8 +42,9 @@ const determinePosition = (imageWidth) => {
   return leftPosition;
 }
 const determineAnimationTime = (desiredFallRate) => {
+  console.log('desiredFallRate: ', desiredFallRate, BASE_RATE);
   const windowHeight = window.innerHeight;
-  return windowHeight / desiredFallRate;
+  return windowHeight / (desiredFallRate * BASE_RATE);
 }
 const addPointValueToScore = (state, imageWrapper) => {
   if (state.isPlaying) {

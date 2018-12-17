@@ -3,11 +3,12 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  font-family: $nonto;
+  font-family: $rubik;
   font-size: 8px;
   margin: 0;
   overflow: hidden;
   position: relative;
+  touch-action: manipulation;
 
   @include tablet {
     font-size: 18px;
@@ -98,9 +99,10 @@ main {
 
 aside.controls {
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   border: 1px solid $white;
   border-right: none;
+  border-radius: 10px;
   color: $white;
   display: flex;
   flex-direction: column;

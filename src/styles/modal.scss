@@ -5,6 +5,7 @@
   height: 100vh;
   position: fixed;
   width: 100%;
+  z-index: 1;
 
   &.active {
     display: block;
@@ -12,8 +13,10 @@
 
   .modalContent {
     background-color: $purple;
-    margin: 0;
+    border-radius: 10px;
+    font-size: 1.5em;
     left: 50%;
+    margin: 0;
     padding: 2.5em;
     position: absolute;
     top: 50%;

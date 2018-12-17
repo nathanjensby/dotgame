@@ -9,5 +9,6 @@ import cagev8 from '../images/cagev8.png';
 import cagev9 from '../images/cagev9.png';
 
 export const BASE_SIZE = 50;
+export const BASE_RATE = 1.5;
 
 export const CAGES = [{ img: cagev1 }, { img: cagev2 }, { img: cagev3 }, { img: cagev4 }, { img: cagev5 }, { img: cagev6  }, { img: cagev7 }, { img: cagev8 }, { img: cagev9 }];

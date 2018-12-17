@@ -4,7 +4,7 @@ export const textFlash = (type) => {
   const flash = document.createElement('div');
   flash.classList.add('textFlash', `${type}`);
   flash.setAttribute('style', `
-    animation: ${type === 'restart' ? 'rotateAndFlash' : 'textFlash' } 1s ease-in-out;
+    animation: ${type === 'restart' ? 'rotateAndFlash' : 'textFlash' } 750ms ease-in-out;
   `);
   flash.addEventListener("animationend", () => {
     flash.parentNode.removeChild(flash);

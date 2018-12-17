@@ -5,17 +5,22 @@
   padding: 0;
   position: absolute;
 
-  &.inactive {
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
     cursor: not-allowed;
+
     img {
       -webkit-filter: $sillhouette;
       filter: $sillhouette;
       opacity: 1;
     }
   }
+
   img {
     -webkit-filter: drop-shadow($drop-shadow);
     filter: drop-shadow($drop-shadow);
-
   }
 }
