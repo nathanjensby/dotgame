@@ -1,4 +1,4 @@
-import { randomNumber, determineAnimationTime, determinePosition, removeCage, addPointValueToScore, updateScore } from './util.js';
+import { randomNumber, determineAnimationTime, determinePosition, removeCage, addPointValueToScore } from './util.js';
 import { CAGES, BASE_SIZE } from './enums';
 
 export const addCage = (state) => {

@@ -29,11 +29,49 @@ button {
     border-radius: 10px;
     color: #FFFFFF;
     font-size: 1.5em;
+    font-weight: 700;
     padding: .625em;
-    width: 100%; }
+    position: relative;
+    width: 100%;
+    transition: .6s;
+    overflow: hidden; }
     button.btn:focus {
       outline: 0;
       text-decoration: underline; }
+    button.btn:before {
+      content: '';
+      display: block;
+      position: absolute;
+      background: rgba(255, 255, 255, 0.5);
+      width: 60px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      opacity: .5;
+      filter: blur(30px);
+      transform: translateX(-100px) skewX(-15deg); }
+    button.btn:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      width: 30px;
+      height: 100%;
+      left: 30px;
+      top: 0;
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateX(-100px) skewX(-15deg); }
+    button.btn:hover {
+      cursor: pointer; }
+      button.btn:hover:before {
+        transform: translateX(300px) skewX(-15deg);
+        opacity: 0.6;
+        transition: .7s; }
+      button.btn:hover:after {
+        transform: translateX(300px) skewX(-15deg);
+        opacity: 1;
+        transition: .7s; }
 
 .modalOverlay {
   background-color: rgba(0, 0, 0, 0.9);
@@ -41,13 +79,16 @@ button {
   display: none;
   height: 100vh;
   position: fixed;
-  width: 100%; }
+  width: 100%;
+  z-index: 1; }
   .modalOverlay.active {
     display: block; }
   .modalOverlay .modalContent {
     background-color: #b8b3e9;
-    margin: 0;
+    border-radius: 10px;
+    font-size: 1.5em;
     left: 50%;
+    margin: 0;
     padding: 2.5em;
     position: absolute;
     top: 50%;
@@ -79,11 +120,13 @@ button {
   border: none;
   padding: 0;
   position: absolute; }
-  .imageWrapper.inactive {
+  .imageWrapper:focus {
+    outline: none; }
+  .imageWrapper:disabled {
     cursor: not-allowed; }
-    .imageWrapper.inactive img {
-      -webkit-filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(100%);
-      filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(100%);
+    .imageWrapper:disabled img {
+      -webkit-filter: contrast(0) sepia(100%) hue-rotate(171deg) saturate(2000%) brightness(100%);
+      filter: contrast(0) sepia(100%) hue-rotate(171deg) saturate(2000%) brightness(100%);
       opacity: 1; }
   .imageWrapper img {
     -webkit-filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5));
@@ -158,11 +201,12 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Rubik", sans-serif;
   font-size: 8px;
   margin: 0;
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  touch-action: manipulation; }
   @media (min-width: 768px) and (max-width: 1023px) {
     body {
       font-size: 18px; } }
@@ -234,9 +278,10 @@ main {
 
 aside.controls {
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   border: 1px solid #FFFFFF;
   border-right: none;
+  border-radius: 10px;
   color: #FFFFFF;
   display: flex;
   flex-direction: column;

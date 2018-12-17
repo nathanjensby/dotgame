@@ -104,13 +104,85 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"js/util.js":[function(require,module,exports) {
+})({"images/cagev1.png":[function(require,module,exports) {
+module.exports = "/cagev1.2b0cfe84.png";
+},{}],"images/cagev2.png":[function(require,module,exports) {
+module.exports = "/cagev2.81c67585.png";
+},{}],"images/cagev3.png":[function(require,module,exports) {
+module.exports = "/cagev3.04b6021b.png";
+},{}],"images/cagev4.png":[function(require,module,exports) {
+module.exports = "/cagev4.750c9310.png";
+},{}],"images/cagev5.png":[function(require,module,exports) {
+module.exports = "/cagev5.100b1ead.png";
+},{}],"images/cagev6.png":[function(require,module,exports) {
+module.exports = "/cagev6.db977ddc.png";
+},{}],"images/cagev7.png":[function(require,module,exports) {
+module.exports = "/cagev7.aec0c78c.png";
+},{}],"images/cagev8.png":[function(require,module,exports) {
+module.exports = "/cagev8.59126c9b.png";
+},{}],"images/cagev9.png":[function(require,module,exports) {
+module.exports = "/cagev9.7c3bae3f.png";
+},{}],"js/enums.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CAGES = exports.BASE_RATE = exports.BASE_SIZE = void 0;
+
+var _cagev = _interopRequireDefault(require("../images/cagev1.png"));
+
+var _cagev2 = _interopRequireDefault(require("../images/cagev2.png"));
+
+var _cagev3 = _interopRequireDefault(require("../images/cagev3.png"));
+
+var _cagev4 = _interopRequireDefault(require("../images/cagev4.png"));
+
+var _cagev5 = _interopRequireDefault(require("../images/cagev5.png"));
+
+var _cagev6 = _interopRequireDefault(require("../images/cagev6.png"));
+
+var _cagev7 = _interopRequireDefault(require("../images/cagev7.png"));
+
+var _cagev8 = _interopRequireDefault(require("../images/cagev8.png"));
+
+var _cagev9 = _interopRequireDefault(require("../images/cagev9.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BASE_SIZE = 50;
+exports.BASE_SIZE = BASE_SIZE;
+var BASE_RATE = 1.5;
+exports.BASE_RATE = BASE_RATE;
+var CAGES = [{
+  img: _cagev.default
+}, {
+  img: _cagev2.default
+}, {
+  img: _cagev3.default
+}, {
+  img: _cagev4.default
+}, {
+  img: _cagev5.default
+}, {
+  img: _cagev6.default
+}, {
+  img: _cagev7.default
+}, {
+  img: _cagev8.default
+}, {
+  img: _cagev9.default
+}];
+exports.CAGES = CAGES;
+},{"../images/cagev1.png":"images/cagev1.png","../images/cagev2.png":"images/cagev2.png","../images/cagev3.png":"images/cagev3.png","../images/cagev4.png":"images/cagev4.png","../images/cagev5.png":"images/cagev5.png","../images/cagev6.png":"images/cagev6.png","../images/cagev7.png":"images/cagev7.png","../images/cagev8.png":"images/cagev8.png","../images/cagev9.png":"images/cagev9.png"}],"js/util.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.updateStartButtonHTML = exports.updateSliderHTML = exports.updateSliderHeight = exports.updateScore = exports.updateScoreHTML = exports.resetGameBoard = exports.removeCage = exports.randomNumber = exports.pauseCages = exports.determinePosition = exports.determineAnimationTime = exports.addPointValueToScore = void 0;
+
+var _enums = require("./enums");
 
 var randomNumber = function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -161,9 +233,9 @@ var pauseCages = function pauseCages() {
     cage.style.WebkitAnimationPlayState = isPlaying ? 'running' : 'paused';
 
     if (isPlaying) {
-      cage.classList.remove('inactive');
+      cage.disabled = false;
     } else {
-      cage.classList.add('inactive');
+      cage.disabled = true;
     }
   });
 };
@@ -186,8 +258,9 @@ var determinePosition = function determinePosition(imageWidth) {
 exports.determinePosition = determinePosition;
 
 var determineAnimationTime = function determineAnimationTime(desiredFallRate) {
+  console.log('desiredFallRate: ', desiredFallRate, _enums.BASE_RATE);
   var windowHeight = window.innerHeight;
-  return windowHeight / desiredFallRate;
+  return windowHeight / (desiredFallRate * _enums.BASE_RATE);
 };
 
 exports.determineAnimationTime = determineAnimationTime;
@@ -218,7 +291,7 @@ var resetGameBoard = function resetGameBoard(gameState, myInterval) {
 };
 
 exports.resetGameBoard = resetGameBoard;
-},{}],"js/textFlash.js":[function(require,module,exports) {
+},{"./enums":"js/enums.js"}],"js/textFlash.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -230,7 +303,7 @@ var textFlash = function textFlash(type) {
   var target = document.querySelector('.gameBoard');
   var flash = document.createElement('div');
   flash.classList.add('textFlash', "".concat(type));
-  flash.setAttribute('style', "\n    animation: ".concat(type === 'restart' ? 'rotateAndFlash' : 'textFlash', " 1s ease-in-out;\n  "));
+  flash.setAttribute('style', "\n    animation: ".concat(type === 'restart' ? 'rotateAndFlash' : 'textFlash', " 750ms ease-in-out;\n  "));
   flash.addEventListener("animationend", function () {
     flash.parentNode.removeChild(flash);
   });
@@ -238,75 +311,7 @@ var textFlash = function textFlash(type) {
 };
 
 exports.textFlash = textFlash;
-},{}],"images/cagev1.png":[function(require,module,exports) {
-module.exports = "/cagev1.2b0cfe84.png";
-},{}],"images/cagev2.png":[function(require,module,exports) {
-module.exports = "/cagev2.81c67585.png";
-},{}],"images/cagev3.png":[function(require,module,exports) {
-module.exports = "/cagev3.04b6021b.png";
-},{}],"images/cagev4.png":[function(require,module,exports) {
-module.exports = "/cagev4.750c9310.png";
-},{}],"images/cagev5.png":[function(require,module,exports) {
-module.exports = "/cagev5.100b1ead.png";
-},{}],"images/cagev6.png":[function(require,module,exports) {
-module.exports = "/cagev6.db977ddc.png";
-},{}],"images/cagev7.png":[function(require,module,exports) {
-module.exports = "/cagev7.aec0c78c.png";
-},{}],"images/cagev8.png":[function(require,module,exports) {
-module.exports = "/cagev8.59126c9b.png";
-},{}],"images/cagev9.png":[function(require,module,exports) {
-module.exports = "/cagev9.7c3bae3f.png";
-},{}],"js/enums.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.CAGES = exports.BASE_SIZE = void 0;
-
-var _cagev = _interopRequireDefault(require("../images/cagev1.png"));
-
-var _cagev2 = _interopRequireDefault(require("../images/cagev2.png"));
-
-var _cagev3 = _interopRequireDefault(require("../images/cagev3.png"));
-
-var _cagev4 = _interopRequireDefault(require("../images/cagev4.png"));
-
-var _cagev5 = _interopRequireDefault(require("../images/cagev5.png"));
-
-var _cagev6 = _interopRequireDefault(require("../images/cagev6.png"));
-
-var _cagev7 = _interopRequireDefault(require("../images/cagev7.png"));
-
-var _cagev8 = _interopRequireDefault(require("../images/cagev8.png"));
-
-var _cagev9 = _interopRequireDefault(require("../images/cagev9.png"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BASE_SIZE = 50;
-exports.BASE_SIZE = BASE_SIZE;
-var CAGES = [{
-  img: _cagev.default
-}, {
-  img: _cagev2.default
-}, {
-  img: _cagev3.default
-}, {
-  img: _cagev4.default
-}, {
-  img: _cagev5.default
-}, {
-  img: _cagev6.default
-}, {
-  img: _cagev7.default
-}, {
-  img: _cagev8.default
-}, {
-  img: _cagev9.default
-}];
-exports.CAGES = CAGES;
-},{"../images/cagev1.png":"images/cagev1.png","../images/cagev2.png":"images/cagev2.png","../images/cagev3.png":"images/cagev3.png","../images/cagev4.png":"images/cagev4.png","../images/cagev5.png":"images/cagev5.png","../images/cagev6.png":"images/cagev6.png","../images/cagev7.png":"images/cagev7.png","../images/cagev8.png":"images/cagev8.png","../images/cagev9.png":"images/cagev9.png"}],"js/cage.js":[function(require,module,exports) {
+},{}],"js/cage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -445,7 +450,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52938" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49825" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
