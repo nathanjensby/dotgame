@@ -1,27 +1,19 @@
 {
-  "name": "sass",
+  "name": "Click Cage",
   "version": "0.1.0",
-  "description": "Example project showing how to use Sass middleware",
-  "main": "server.js",
+  "description": "A Nic Cage dot game",
   "scripts": {
     "start": "node server.js",
-    "dev": "parcel ./src/index.html -d public",
-    "build": "parcel build ./src/index.html -d public"
+    "dev": "parcel serve src/index.html --open",
+    "build": "parcel build src/index.html"
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "node-sass-middleware": "^0.11.0"
+    "express": "^4.19.2",
+    "node-sass-middleware": "^1.1.0"
   },
-  "engines": {
-    "node": "4.4.5"
-  },
-  "keywords": [
-    "node",
-    "express",
-    "sass"
-  ],
   "license": "MIT",
   "devDependencies": {
-    "parcel-bundler": "^1.10.3"
+    "@parcel/transformer-sass": "^2.12.0",
+    "parcel": "^2.12.0"
   }
 }
